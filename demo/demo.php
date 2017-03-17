@@ -1,4 +1,4 @@
-<?php fastcgi_finish_request();
+<?php //fastcgi_finish_request();
 
 include_once dirname(__DIR__) . '/vendor/autoload.php';
 

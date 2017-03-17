@@ -89,7 +89,7 @@ class Analytics
 
     public function track()
     {
-        if (!$this->resource || $this->action || $this->label)
+        if (!$this->resource || !$this->action || !$this->label)
         {
             throw new \InvalidArgumentException('Object|Action|Label not found');
         }
@@ -119,7 +119,7 @@ class Analytics
     protected function params()
     {
         $var_cookie = random_int(10000000, 99999999);     //random cookie number
-        $var_utmp   = basename(__FILE__);
+        $var_utmp = $this->resource;
         $var_today  = time();                       //today
 
         return '?utmwv=1'               // Tracking code version
@@ -132,7 +132,6 @@ class Analytics
             . '&utmdt=-'               // Page title, url encoded
             . '&utmhn=' . $this->_domain   // Host Name
             . '&utmp=' . $var_utmp    // page
-            . '&utmr=' . $this->getCurrentUrl() // Referral, complete url
             . '&utmac=' . $this->_code   // Account code
             . '&utmt=event'            // Type of request
             // utme is an extensible parameter, used for the event data here
@@ -146,18 +145,4 @@ class Analytics
             . $var_cookie . '.%3B'; // Cookie values are in this utmcc
     }
 
-    /**
-     * Get the current Url
-     *
-     * @return string current url
-     */
-    protected function getCurrentUrl()
-    {
-        $url = isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
-        $url .= '://' . $_SERVER['SERVER_NAME'];
-        $url .= in_array($_SERVER['SERVER_PORT'], array('80', '443')) ? '' : ':' . $_SERVER['SERVER_PORT'];
-        $url .= $_SERVER['REQUEST_URI'];
-
-        return $url;
-    }
 }

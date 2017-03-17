@@ -1,0 +1,16 @@
+{
+  "name": "deimos/analytics",
+  "description": "Deimos Analytics.",
+  "license": "library",
+  "authors": [
+    {
+      "name": "Babichev Maxim",
+      "email": "info@babichev.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Deimos\\": "src/"
+    }
+  }
+}
